@@ -5,10 +5,19 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_executable(ComputerGraphics main.cpp)
-find_package(OpenGL REQUIRED)
-find_package(GLUT REQUIRED)
-find_package(GLU REQUIRED)
-include_directories( ${OPENGL_INCLUDE_DIRS}  ${GLUT_INCLUDE_DIRS} )
+file(
+  GLOB_RECURSE
+  SOURCES
+  CONFIGURE_DEPENDS
+  "src/*.hpp"
+  "src/*.cpp")
 
-target_link_libraries(${PROJECT_NAME} OpenGL::GL GLUT::GLUT GLU)
+add_executable(ComputerGraphics main.cpp ${SOURCES})
+find_package(OpenGL REQUIRED)
+find_package(glfw3 3.3 REQUIRED)
+include_directories( ${OPENGL_INCLUDE_DIRS}  )
+
+target_include_directories(
+  ${PROJECT_NAME}
+  PUBLIC src)
+target_link_libraries(${PROJECT_NAME} OpenGL::GL glfw)
