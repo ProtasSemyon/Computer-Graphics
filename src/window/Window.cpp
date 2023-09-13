@@ -15,6 +15,11 @@ Window::Window(const std::string &name, int width, int height) {
 	glfwMakeContextCurrent(window);
 
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0, WIDTH - 1, HEIGHT - 1, 0, 0, 1);
+	glMatrixMode(GL_MODELVIEW);
 }
 
 void Window::startMainLoop() {
@@ -34,5 +39,16 @@ bool Window::closeCondition() {
 }
 
 void Window::draw() const {
-	glClear( GL_COLOR_BUFFER_BIT );
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+  glClear( GL_COLOR_BUFFER_BIT );
+	
+	DrawableObjectPool::getInstance().draw();
+	if (mode) {
+		mode->draw();
+	}
+}
+
+void Window::setMode(IMode* newMode) {
+	mode = newMode;
+	mode->setWindow(window);
 }

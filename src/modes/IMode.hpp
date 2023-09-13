@@ -1,4 +1,7 @@
+#pragma once
 
+#include <GLFW/glfw3.h>
+#include "draw/IDrawable.hpp"
 
 class IMode {
 public:
@@ -8,5 +11,12 @@ public:
 
   virtual void draw() = 0;
 
-  virtual void update() = 0;
+  void setWindow(GLFWwindow* newWindow);
+
+protected:
+  void setMouseCallback();
+
+  virtual void setMouseCallbackInHeritor() = 0;
+
+  GLFWwindow* window;
 };
