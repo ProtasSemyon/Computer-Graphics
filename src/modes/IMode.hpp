@@ -3,6 +3,8 @@
 #include <GLFW/glfw3.h>
 #include "draw/IDrawable.hpp"
 
+const int DEBUG_MODE_KEY = GLFW_KEY_D;
+
 class IMode {
 public:
   IMode() = default;
@@ -16,7 +18,16 @@ public:
 protected:
   void setMouseCallback();
 
+  void setKeyCallback();
+
   virtual void setMouseCallbackInHeritor() = 0;
 
+  static void changeDebugState();
+
   GLFWwindow* window;
+
+  static bool debugMode;
+
+private:
+  static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 };

@@ -15,9 +15,19 @@ private:
 
   static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 
+  static void mouseButtonCallbackNoDebug(GLFWwindow* window, int button, int action, int mods);
+
+  static void mouseButtonCallbackDebug(GLFWwindow* window, int button, int action, int mods);
+
   static bool startDrawing;
 
+  static bool selectFirstPoint;
+
+  static bool startDrawingDebug;
+
   static std::pair<int, int> startPoint;
+
+  static std::pair<int, int> endPoint;
 
   static std::vector<std::pair<int, int> > currentLine;
 };

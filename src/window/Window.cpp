@@ -34,7 +34,6 @@ void Window::startMainLoop() {
 }
 
 bool Window::closeCondition() {
-  glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
   return glfwGetKey(window, GLFW_KEY_ESCAPE ) == GLFW_PRESS || glfwWindowShouldClose(window) != 0;
 }
 

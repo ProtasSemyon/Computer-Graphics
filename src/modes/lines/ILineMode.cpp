@@ -5,9 +5,17 @@
 
 bool ILineMode::startDrawing = false;
 
-std::pair<int, int> ILineMode::startPoint = {0,0};
+bool ILineMode::startDrawingDebug = false;
 
-std::vector<std::pair<int, int> > ILineMode::currentLine = {};
+bool ILineMode::selectFirstPoint = false;
+
+std::pair<int, int> ILineMode::startPoint;
+
+std::pair<int, int> ILineMode::endPoint;
+
+std::vector<std::pair<int, int> > ILineMode::currentLine;
+
+const int DEBUG_NEXT_STEP = GLFW_KEY_ENTER;
 
 void ILineMode::draw() {  
   if (startDrawing) {
@@ -15,7 +23,6 @@ void ILineMode::draw() {
     double ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
     currentLine = getLine(startPoint, {xpos, ypos});
-    std::cout << currentLine.size() << std::endl;
 
     glBegin( GL_POINTS );
     for(const auto& [x, y] : currentLine) {
@@ -23,9 +30,48 @@ void ILineMode::draw() {
     }
     glEnd();
   }
+
+  if (startDrawingDebug) {
+    currentLine = getLine(startPoint, endPoint);
+    int drawIndex = -1;
+    std::vector<std::pair<int, int> > lineForDraw = {};
+    while(lineForDraw.size() <= currentLine.size()) {
+      if (glfwGetKey(window, DEBUG_NEXT_STEP) == GLFW_PRESS) {
+        drawIndex++;
+        lineForDraw.emplace_back(currentLine[drawIndex]);
+      }
+      if (glfwGetKey(window, DEBUG_MODE_KEY) == GLFW_PRESS) {
+        break;
+      }
+      glBegin( GL_POINTS );
+        for(const auto& [x, y] : lineForDraw) {
+          glVertex2i(x, y);
+        }
+      glEnd();
+
+      glfwSwapBuffers(window);
+		  glfwPollEvents();
+    }
+    startDrawingDebug = false;
+    DrawableObjectPool::getInstance().addObject(new Line(lineForDraw));
+  }
 }
 
-void ILineMode::mouseButtonCallback(GLFWwindow* window, int button, int action, int /*mods*/) {
+void ILineMode::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+  if (!debugMode) {
+    mouseButtonCallbackNoDebug(window, button, action, mods);
+  } else {
+    if (!startDrawingDebug) {
+      mouseButtonCallbackDebug(window, button, action, mods);
+    }
+  }
+}
+
+void ILineMode::setMouseCallbackInHeritor() {
+  glfwSetMouseButtonCallback(window, ILineMode::mouseButtonCallback);
+}
+
+void ILineMode::mouseButtonCallbackNoDebug(GLFWwindow* window, int button, int action, int /*mods*/) {
   if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
     double xpos;
     double ypos;
@@ -47,7 +93,23 @@ void ILineMode::mouseButtonCallback(GLFWwindow* window, int button, int action, 
   }
 }
 
-void ILineMode::setMouseCallbackInHeritor() {
-  glfwSetMouseButtonCallback(window, ILineMode::mouseButtonCallback);
+void ILineMode::mouseButtonCallbackDebug(GLFWwindow* window, int button, int action, int mods) {
+  if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
+    double xpos;
+    double ypos;
+    glfwGetCursorPos(window, &xpos, &ypos);
+    std::cerr << "x: " << xpos << " y: " << ypos << std::endl;
+
+    selectFirstPoint = !selectFirstPoint;
+    if (selectFirstPoint) {
+      startPoint = std::make_pair(xpos, ypos);
+    } else {
+      endPoint = std::make_pair(xpos, ypos);
+      startDrawingDebug = true;
+    }
+    //DrawableObjectPool::getInstance().addObject(new Line(currentLine));
+  }
 }
+
+
 
