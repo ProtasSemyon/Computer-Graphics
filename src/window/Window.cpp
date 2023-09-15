@@ -1,8 +1,11 @@
 #include "Window.hpp"
 #include <stdexcept>
+#include <iostream>
+
+#include "modes/lines/LineDDAMode/LineDDAMode.hpp"
 
 
-Window::Window(const std::string &name, int width, int height) {
+Window::Window(const std::string &name, int width, int height) : mode(nullptr) {
   if( !glfwInit() ){
     throw std::invalid_argument("Failed to initialize GLFW");
 	}
@@ -12,7 +15,13 @@ Window::Window(const std::string &name, int width, int height) {
 		glfwTerminate();
     throw std::invalid_argument("Failed to open GLFW window");
 	}
+
 	glfwMakeContextCurrent(window);
+
+	ImGui::CreateContext();
+
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplOpenGL3_Init("#version 330");
 
 	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
 
@@ -24,12 +33,44 @@ Window::Window(const std::string &name, int width, int height) {
 
 void Window::startMainLoop() {
   do{		
-		draw();
-		glfwSwapBuffers(window);
 		glfwPollEvents();
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+
+		ImGui::NewFrame();
+
+		// Check for right-click to open the pop-up menu
+		
+		if (ImGui::IsKeyPressed(ImGuiKey_MouseRight)) {
+			std::cout << "BRUH" << std::endl;
+				ImGui::OpenPopup("ModeMenu");
+		}
+
+		if (ImGui::BeginPopup("ModeMenu")) {
+				drawMenu();
+				ImGui::EndPopup();
+		}
+
+		// Render your main application here
+
+		// Rendering
+		ImGui::Render();
+
+		ImGui::EndFrame();
+
+
+		draw();
+
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		glfwSwapBuffers(window);
 	} 
 	while(!closeCondition());
 
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
+
+	glfwDestroyWindow(window);
 	glfwTerminate();
 }
 
@@ -51,4 +92,14 @@ void Window::draw() const {
 void Window::setMode(IMode* newMode) {
 	mode = newMode;
 	mode->setWindow(window);
+}
+
+void Window::drawMenu() {
+		if (ImGui::BeginMenu("Lines"))
+		{
+			if(ImGui::MenuItem("DDA")) {
+				setMode(new LineDDAMode());
+			}
+			ImGui::EndMenu();
+		}
 }

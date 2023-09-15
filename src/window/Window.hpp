@@ -5,12 +5,11 @@
 #include "modes/IMode.hpp"
 #include "draw/DrawableObjectPool.hpp"
 
-const int WIDTH = 1920;
+const int WIDTH = 400;
 
-const int HEIGHT = 1080;
+const int HEIGHT = 400;
 
 class Window {
-
 public:
   Window(const std::string &name, int width = WIDTH, int height = HEIGHT);
 
@@ -26,4 +25,6 @@ private:
   bool closeCondition();
 
   void draw() const;
+
+  void drawMenu();
 };

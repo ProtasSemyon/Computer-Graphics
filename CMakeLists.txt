@@ -15,9 +15,11 @@ file(
 add_executable(ComputerGraphics main.cpp ${SOURCES})
 find_package(OpenGL REQUIRED)
 find_package(glfw3 3.3 REQUIRED)
-include_directories( ${OPENGL_INCLUDE_DIRS} )
+
+include_directories( ${OPENGL_INCLUDE_DIRS})
+add_subdirectory(./lib/imgui)
 
 target_include_directories(
   ${PROJECT_NAME}
   PUBLIC src)
-target_link_libraries(${PROJECT_NAME} OpenGL::GL glfw)
+target_link_libraries(${PROJECT_NAME} OpenGL::GL glfw imgui imgui-glfw imgui-opengl3)

@@ -60,6 +60,7 @@ void ILineMode::draw() {
 }
 
 void ILineMode::mouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
+  ImGui_ImplGlfw_MouseButtonCallback(window, button, action, mods);
   if (!debugMode) {
     mouseButtonCallbackNoDebug(window, button, action, mods);
   } else {
@@ -109,7 +110,6 @@ void ILineMode::mouseButtonCallbackDebug(GLFWwindow* window, int button, int act
       endPoint = {(int)xpos, (int)ypos};
       startDrawingDebug = true;
     }
-    //DrawableObjectPool::getInstance().addObject(new Line(currentLine));
   }
 }
 

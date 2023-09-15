@@ -2,6 +2,9 @@
 
 #include <GLFW/glfw3.h>
 #include "draw/IDrawable.hpp"
+#include <imgui.h>
+#include <imgui_impl_glfw.h>
+#include <imgui_impl_opengl3.h>
 
 const int DEBUG_MODE_KEY = GLFW_KEY_D;
 
