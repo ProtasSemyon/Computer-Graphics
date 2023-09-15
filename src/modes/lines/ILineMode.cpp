@@ -9,11 +9,11 @@ bool ILineMode::startDrawingDebug = false;
 
 bool ILineMode::selectFirstPoint = false;
 
-std::pair<int, int> ILineMode::startPoint;
+Point ILineMode::startPoint;
 
-std::pair<int, int> ILineMode::endPoint;
+Point ILineMode::endPoint;
 
-std::vector<std::pair<int, int> > ILineMode::currentLine;
+std::vector<Point> ILineMode::currentLine;
 
 const int DEBUG_NEXT_STEP = GLFW_KEY_ENTER;
 
@@ -22,10 +22,11 @@ void ILineMode::draw() {
     double xpos;
     double ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
-    currentLine = getLine(startPoint, {xpos, ypos});
+    currentLine = getLine(startPoint, {(int)xpos, (int)ypos});
 
     glBegin( GL_POINTS );
-    for(const auto& [x, y] : currentLine) {
+    for(const auto& [x, y, color] : currentLine) {
+      glColor4f(color.r, color.g, color.b, color.a);
       glVertex2i(x, y);
     }
     glEnd();
@@ -34,7 +35,7 @@ void ILineMode::draw() {
   if (startDrawingDebug) {
     currentLine = getLine(startPoint, endPoint);
     int drawIndex = -1;
-    std::vector<std::pair<int, int> > lineForDraw = {};
+    std::vector<Point> lineForDraw = {};
     while(lineForDraw.size() <= currentLine.size()) {
       if (glfwGetKey(window, DEBUG_NEXT_STEP) == GLFW_PRESS) {
         drawIndex++;
@@ -44,7 +45,8 @@ void ILineMode::draw() {
         break;
       }
       glBegin( GL_POINTS );
-        for(const auto& [x, y] : lineForDraw) {
+        for(const auto& [x, y, color] : lineForDraw) {
+          glColor4f(color.r, color.g, color.b, color.a);
           glVertex2i(x, y);
         }
       glEnd();
@@ -79,7 +81,7 @@ void ILineMode::mouseButtonCallbackNoDebug(GLFWwindow* window, int button, int a
     std::cerr << "x: " << xpos << " y: " << ypos << std::endl;
 
     startDrawing = true;
-    startPoint = std::make_pair(xpos, ypos);
+    startPoint = {(int)xpos, (int)ypos};
   }
 
   if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
@@ -102,9 +104,9 @@ void ILineMode::mouseButtonCallbackDebug(GLFWwindow* window, int button, int act
 
     selectFirstPoint = !selectFirstPoint;
     if (selectFirstPoint) {
-      startPoint = std::make_pair(xpos, ypos);
+      startPoint = {(int)xpos, (int)ypos};
     } else {
-      endPoint = std::make_pair(xpos, ypos);
+      endPoint = {(int)xpos, (int)ypos};
       startDrawingDebug = true;
     }
     //DrawableObjectPool::getInstance().addObject(new Line(currentLine));

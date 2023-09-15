@@ -8,11 +8,11 @@ int round(float n)
     return (int)(n + 1);
 }
 
-std::vector<std::pair<int, int> > LineDDAMode::getLine(std::pair<int, int> startPoint, std::pair<int, int> endPoint) {
-  std::vector<std::pair<int, int> > line;
+std::vector<Point> LineDDAMode::getLine(Point startPoint, Point endPoint) {
+  std::vector<Point > line;
   // Calculate dx and dy
-  int dx = endPoint.first - startPoint.first;
-  int dy = endPoint.second - startPoint.second;
+  int dx = endPoint.x - startPoint.x;
+  int dy = endPoint.y - startPoint.y;
 
   int step;
 
@@ -29,11 +29,11 @@ std::vector<std::pair<int, int> > LineDDAMode::getLine(std::pair<int, int> start
   float y_incr = (float)dy / step;
 
   // Take the initial points as x and y
-  float x = startPoint.first;
-  float y = startPoint.second;
+  float x = startPoint.x;
+  float y = startPoint.y;
 
   for (int i = 0; i < step; i++) {
-    line.emplace_back(std::make_pair(round(x), round(y)));
+    line.emplace_back(Point(round(x), round(y)));
     x += x_incr;
     y += y_incr;
     // delay(10);

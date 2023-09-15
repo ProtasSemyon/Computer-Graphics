@@ -5,9 +5,9 @@
 #include "modes/IMode.hpp"
 #include "draw/DrawableObjectPool.hpp"
 
-const int WIDTH = 400;
+const int WIDTH = 1920;
 
-const int HEIGHT = 400;
+const int HEIGHT = 1080;
 
 class Window {
 

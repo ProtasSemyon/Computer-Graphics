@@ -6,7 +6,7 @@ class Line: public IDrawable {
 public:
   Line() = default;
 
-  Line(const std::vector<std::pair<int, int> > &points);
+  Line(const std::vector<Point> &points);
   
   void draw() override;
 };

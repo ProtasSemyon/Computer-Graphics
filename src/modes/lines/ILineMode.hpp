@@ -1,6 +1,7 @@
 #pragma once
 
 #include "modes/IMode.hpp"
+#include "core/Point.hpp"
 
 class ILineMode: public IMode {
 public:
@@ -11,7 +12,7 @@ public:
 private:
   void setMouseCallbackInHeritor() override;
 
-  virtual std::vector<std::pair<int, int> > getLine(std::pair<int, int> startPoint, std::pair<int, int> endPoint) = 0;
+  virtual std::vector<Point> getLine(Point startPoint, Point endPoint) = 0;
 
   static void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 
@@ -25,10 +26,10 @@ private:
 
   static bool startDrawingDebug;
 
-  static std::pair<int, int> startPoint;
+  static Point startPoint;
 
-  static std::pair<int, int> endPoint;
+  static Point endPoint;
 
-  static std::vector<std::pair<int, int> > currentLine;
+  static std::vector<Point> currentLine;
 };
 
