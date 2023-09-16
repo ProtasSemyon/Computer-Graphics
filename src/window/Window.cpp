@@ -2,10 +2,10 @@
 #include <stdexcept>
 #include <iostream>
 
-#include "modes/lines/LineDDAMode/LineDDAMode.hpp"
+#include "config/MenuConfig.hpp"
 
 
-Window::Window(const std::string &name, int width, int height) : mode(nullptr) {
+Window::Window(const std::string &name, int width, int height) {
   if( !glfwInit() ){
     throw std::invalid_argument("Failed to initialize GLFW");
 	}
@@ -95,11 +95,14 @@ void Window::setMode(IMode* newMode) {
 }
 
 void Window::drawMenu() {
-		if (ImGui::BeginMenu("Lines"))
-		{
-			if(ImGui::MenuItem("DDA")) {
-				setMode(new LineDDAMode());
+	for (const auto &[menuName, menuElements] : menuConfig) {		
+		if (ImGui::BeginMenu(menuName.c_str())) {
+			for (const auto &[submenuName, submenuElement] : menuElements) {
+				if (ImGui::MenuItem(submenuName.c_str())) {
+					setMode(submenuElement.get());
+				}
 			}
 			ImGui::EndMenu();
 		}
+	}
 }
