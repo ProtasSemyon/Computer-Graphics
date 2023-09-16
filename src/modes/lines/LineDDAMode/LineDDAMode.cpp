@@ -33,7 +33,7 @@ std::vector<Point> LineDDAMode::getLine(Point startPoint, Point endPoint) {
   float y = startPoint.y;
 
   for (int i = 0; i < step; i++) {
-    line.emplace_back(Point(round(x), round(y)));
+    line.emplace_back(round(x), round(y));
     x += x_incr;
     y += y_incr;
     // delay(10);

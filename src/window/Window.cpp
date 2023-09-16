@@ -42,8 +42,7 @@ void Window::startMainLoop() {
 		// Check for right-click to open the pop-up menu
 		
 		if (ImGui::IsKeyPressed(ImGuiKey_MouseRight)) {
-			std::cout << "BRUH" << std::endl;
-				ImGui::OpenPopup("ModeMenu");
+			ImGui::OpenPopup("ModeMenu");
 		}
 
 		if (ImGui::BeginPopup("ModeMenu")) {
