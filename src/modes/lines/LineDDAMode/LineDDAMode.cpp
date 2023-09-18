@@ -3,9 +3,7 @@
 
 int round(float n)
 {
-    if (n - (int)n < 0.5)
-        return (int)n;
-    return (int)(n + 1);
+    return static_cast<int>(n + 0.5f);
 }
 
 std::vector<Point> LineDDAMode::getLine(Point startPoint, Point endPoint) {

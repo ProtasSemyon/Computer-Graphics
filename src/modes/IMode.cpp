@@ -26,3 +26,7 @@ void IMode::keyCallback(GLFWwindow* window, int key, int scancode, int action, i
   if (key == DEBUG_MODE_KEY && action == GLFW_PRESS)
     changeDebugState();
 }
+
+int IMode::round(float x) {
+  return static_cast<int>(x + 0.5f);
+}

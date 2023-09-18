@@ -31,6 +31,8 @@ protected:
 
   static bool debugMode;
 
+  static int round(float x);
+
 private:
   static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 };
