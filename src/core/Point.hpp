@@ -20,4 +20,5 @@ struct Point {
   int x;
   int y;
   Color color;
+  Point& toScreenPoint(const Point &zeroPoint);
 };
