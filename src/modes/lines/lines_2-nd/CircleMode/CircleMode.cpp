@@ -54,19 +54,19 @@ void CircleMode::addPoint(std::vector<Point>& points, const Point &point) const 
 }
 
 void CircleMode::moveD(int &x, int &y, int &error) {
+  error += 2 * x - 2 * y + 2;
   x += 1;
   y -= 1;
-  error += 2 * x - 2 * y + 2;
 }
 
 void CircleMode::moveV(int &/*x*/, int &y, int &error) {
-  y -= 1;
   error += -2 * y + 1;
+  y -= 1;
 }
   
 void CircleMode::moveH(int &x, int &/*y*/, int &error) {
-  x += 1;
   error += 2 * x + 1;
+  x += 1;
 }
 
 void CircleMode::addPoints(std::vector<Point>& points, int x, int y) const {
