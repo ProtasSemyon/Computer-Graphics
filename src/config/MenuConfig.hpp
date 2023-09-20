@@ -16,8 +16,8 @@ const std::unordered_map<std::string, std::unordered_map<std::string, std::share
     {"Parabola", std::make_shared<ParabolaMode>()},
     {"Vertical Hyperbola", std::make_shared<VerticalHyperbolaMode>()},
     {"Horizontal Hyperbola", std::make_shared<HorizontalHyperbolaMode>()},
-    {"Ellipse", std::make_shared<EllipseMode>()},
-    {"Circle", std::make_shared<CircleMode>()}
+    {"Circle", std::make_shared<CircleMode>()},
+    {"Ellipse", std::make_shared<EllipseMode>()}
   }
   },
   {"Line", {

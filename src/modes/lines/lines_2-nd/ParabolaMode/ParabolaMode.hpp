@@ -1,33 +1,30 @@
 #pragma once
 
-#include "modes/lines/ILineMode.hpp"
+#include "modes/lines/lines_2-nd/ILine2-ndMode.hpp"
 
-class ParabolaMode : public ILineMode {
-protected:
-  std::vector<Point> getLine(Point startPoint, Point endPoint) override;
+class ParabolaMode : public ILine2_ndMode {
 private:
-  Point zeroPoint;
+  void initialisation(const Point &startPoint, const Point &endPoint) final;
 
-  int p;
+  void addPoints(std::vector<Point>& points, int x, int y) const final;
 
-  void addPoints(std::vector<Point>& points, int x, int y) const;
+  int countVerticalError(int y, int error) const final;
 
-  void addPoint(std::vector<Point>& points, const Point & point) const;
+  int countHorizontalError(int x, int error) const final;
 
-  void moveDiagonal(int &x, int &y, int &error) const;
+  int countDiagonalError(int x, int y, int error) const final;
 
-  void moveVertical(int &y, int &error) const;
+  int countStartError() const final;
 
-  void moveHorizontal(int &x, int &error) const;
+  int getStartX() const final;
 
-  int countVerticalError(int y, int error) const;
+  int getStartY() const final;
 
-  int countHorizontalError(int x, int error) const;
-
-  int countDiagonalError(int x, int y, int error) const;
-
-  int countStartError() const;
+  bool isDiagonalOrHorizontal(int error) const final;
+  
+  bool isDiagonalOrVertical(int error) const final;
 
   bool isNegative = false;
 
+  int p;
 };

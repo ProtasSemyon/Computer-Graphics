@@ -1,25 +1,29 @@
 #pragma once
 
-#include "modes/lines/ILineMode.hpp"
+#include "modes/lines/lines_2-nd/ILine2-ndMode.hpp"
 
-class EllipseMode : public ILineMode {
-protected:
-  std::vector<Point> getLine(Point startPoint, Point endPoint) override;
+class EllipseMode : public ILine2_ndMode {
 private:
-  Point zeroPoint;
-
   int a;
 
   int b;
 
-  void addPoints(std::vector<Point>& points, int x, int y) const;
+  void initialisation(const Point &startPoint, const Point &endPoint) final;
 
-  void addPoint(std::vector<Point>& points, const Point & point) const;
+  int countVerticalError(int y, int error) const final;
 
-  void moveD(int &x, int &y, int &error) const;
+  int countHorizontalError(int x, int error) const final;
 
-  void moveV(int &x, int &y, int &error) const;
+  int countDiagonalError(int x, int y, int error) const final;
 
-  void moveH(int &x, int &y, int &error) const;
+  int countStartError() const final;
+
+  int getStartX() const final;
+
+  int getStartY() const final;
+
+  int deltaY() const final;
+
+  bool stopCondition(int x, int y, int limitX, int limitY) const final;
 
 };

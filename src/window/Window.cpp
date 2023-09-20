@@ -1,11 +1,10 @@
-#include "Window.hpp"
-#include <stdexcept>
 #include <iostream>
 
+#include "Window.hpp"
 #include "config/MenuConfig.hpp"
 
 
-Window::Window(const std::string &name, int width, int height) {
+Window::Window(const std::string &name, int width, int height) : width(width), height(height){
   if( !glfwInit() ){
     throw std::invalid_argument("Failed to initialize GLFW");
 	}
@@ -46,8 +45,11 @@ void Window::startMainLoop() {
 		}
 
 		if (ImGui::BeginPopup("ModeMenu")) {
-				drawMenu();
-				ImGui::EndPopup();
+			isMenuOpened = true;
+			drawMenu();
+			ImGui::EndPopup();
+		} else {
+			isMenuOpened = false;
 		}
 
 		// Render your main application here
@@ -90,11 +92,12 @@ void Window::draw() const {
 
 void Window::setMode(IMode* newMode) {
 	mode = newMode;
-	mode->setWindow(window);
+	mode->setWindow(this);
 }
 
 void Window::drawMenu() {
 	for (const auto &[menuName, menuElements] : menuConfig) {		
+		ImGui::SetWindowFontScale(width / FONT_SCALE_MILTIPLICATOR);
 		if (ImGui::BeginMenu(menuName.c_str())) {
 			for (const auto &[submenuName, submenuElement] : menuElements) {
 				if (ImGui::MenuItem(submenuName.c_str())) {
@@ -104,4 +107,20 @@ void Window::drawMenu() {
 			ImGui::EndMenu();
 		}
 	}
+}
+
+GLFWwindow* Window::getWindow() const {
+	return window;
+}
+
+bool Window::getIsMenuOpened() const {
+	return isMenuOpened;
+}
+
+int Window::getWidth() const {
+	return width;
+}
+
+int Window::getHeight() const {
+	return height;
 }

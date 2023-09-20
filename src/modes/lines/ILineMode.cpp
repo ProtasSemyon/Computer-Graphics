@@ -18,10 +18,14 @@ std::vector<Point> ILineMode::currentLine;
 const int DEBUG_NEXT_STEP = GLFW_KEY_ENTER;
 
 void ILineMode::draw() {  
+  if (window->getIsMenuOpened()) {
+    return;
+  }
+  
   if (startDrawing) {
     double xpos;
     double ypos;
-    glfwGetCursorPos(window, &xpos, &ypos);
+    glfwGetCursorPos(window->getWindow(), &xpos, &ypos);
     currentLine = getLine(startPoint, {(int)xpos, (int)ypos});
 
     glBegin( GL_POINTS );
@@ -37,11 +41,11 @@ void ILineMode::draw() {
     int drawIndex = -1;
     std::vector<Point> lineForDraw = {};
     while(lineForDraw.size() <= currentLine.size()) {
-      if (glfwGetKey(window, DEBUG_NEXT_STEP) == GLFW_PRESS) {
+      if (glfwGetKey(window->getWindow(), DEBUG_NEXT_STEP) == GLFW_PRESS) {
         drawIndex++;
         lineForDraw.emplace_back(currentLine[drawIndex]);
       }
-      if (glfwGetKey(window, DEBUG_MODE_KEY) == GLFW_PRESS) {
+      if (glfwGetKey(window->getWindow(), DEBUG_MODE_KEY) == GLFW_PRESS) {
         break;
       }
       glBegin( GL_POINTS );
@@ -51,7 +55,7 @@ void ILineMode::draw() {
         }
       glEnd();
 
-      glfwSwapBuffers(window);
+      glfwSwapBuffers(window->getWindow());
 		  glfwPollEvents();
     }
     startDrawingDebug = false;
@@ -71,7 +75,7 @@ void ILineMode::mouseButtonCallback(GLFWwindow* window, int button, int action, 
 }
 
 void ILineMode::setMouseCallbackInHeritor() {
-  glfwSetMouseButtonCallback(window, ILineMode::mouseButtonCallback);
+  glfwSetMouseButtonCallback(window->getWindow(), ILineMode::mouseButtonCallback);
 }
 
 void ILineMode::mouseButtonCallbackNoDebug(GLFWwindow* window, int button, int action, int /*mods*/) {

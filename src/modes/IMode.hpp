@@ -2,11 +2,12 @@
 
 #include <GLFW/glfw3.h>
 #include "draw/IDrawable.hpp"
-#include <imgui.h>
-#include <imgui_impl_glfw.h>
-#include <imgui_impl_opengl3.h>
+
+#include "window/Window.hpp"
 
 const int DEBUG_MODE_KEY = GLFW_KEY_D;
+
+class Window;
 
 class IMode {
 public:
@@ -16,7 +17,7 @@ public:
 
   virtual void draw() = 0;
 
-  void setWindow(GLFWwindow* newWindow);
+  void setWindow(Window* newWindow);
 
 protected:
   void setMouseCallback();
@@ -27,7 +28,7 @@ protected:
 
   static void changeDebugState();
 
-  GLFWwindow* window;
+  Window* window;
 
   static bool debugMode;
 

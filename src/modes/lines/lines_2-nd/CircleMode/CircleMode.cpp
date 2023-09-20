@@ -2,78 +2,45 @@
 #include <algorithm>
 #include <cmath>
 
-std::vector<Point> CircleMode::getLine(Point startPoint, Point endPoint) {
-  zeroPoint = startPoint;
+void CircleMode::initialisation(const Point &startPoint, const Point &endPoint) {
   radius = findRadius(startPoint, endPoint);
+}
 
-  std::vector<Point> points;
+int CircleMode::getStartX() const {
+  return 0;
+}
 
-  int x = 0;
-  int y = radius;
-  int limit = 0;
+int CircleMode::getStartY() const {
+  return radius;
+}
 
-  int error = 2 - 2 * radius;
-  
-  while (y > limit) {
-    addPoints(points, x, y);
+int CircleMode::countStartError() const {
+  return 2 - 2 * radius;
+}
 
-    if (error < 0) {
-      if (int delta = 2 * error + 2 * y - 1; delta > 0) {
-        moveD(x, y, error);
-      } else {
-        moveH(x, y, error);
-      }
-      continue;
-    }
-    if (error > 0) {
-      if (int delta = 2 * error - 2 * x - 1; delta > 0) {
-        moveV(x, y, error);
-      } else {
-        moveD(x, y, error);
-      }
-      continue;
-    }
-    if (error == 0) {
-      moveD(x, y, error);
-      continue;
-    }
-  }
-  addPoints(points, x, y);
+int CircleMode::countVerticalError(int y, int error) const {
+  return error - 2 * y + 1;
+}
 
+int CircleMode::countHorizontalError(int x, int error) const {
+  return error + 2 * x + 1;
+}
 
-  return points;
+int CircleMode::countDiagonalError(int x, int y, int error) const {
+  return error + 2 * x - 2 * y + 2;
 }
 
 int CircleMode::findRadius(const Point &startPoint, const Point &endPoint) {
   return static_cast<int>(std::sqrt(std::pow(startPoint.x - endPoint.x, 2) + std::pow(startPoint.y - endPoint.y, 2)) + 0.5);
 }
 
-void CircleMode::addPoint(std::vector<Point>& points, const Point &point) const {
-  if (point.x < 0 || point.y < 0) return;
-  points.emplace_back(point);
+int CircleMode::deltaY() const {
+  return -1;
 }
 
-void CircleMode::moveD(int &x, int &y, int &error) {
-  error += 2 * x - 2 * y + 2;
-  x += 1;
-  y -= 1;
+bool CircleMode::stopCondition(int x, int y, int limitX, int limitY) const {
+  return y <= 0;
 }
 
-void CircleMode::moveV(int &/*x*/, int &y, int &error) {
-  error += -2 * y + 1;
-  y -= 1;
-}
-  
-void CircleMode::moveH(int &x, int &/*y*/, int &error) {
-  error += 2 * x + 1;
-  x += 1;
-}
 
-void CircleMode::addPoints(std::vector<Point>& points, int x, int y) const {
-  addPoint(points, Point(x, y).toScreenPoint(zeroPoint));
-  addPoint(points, Point(-x, y).toScreenPoint(zeroPoint));
-  addPoint(points, Point(x, -y).toScreenPoint(zeroPoint));
-  addPoint(points, Point(-x, -y).toScreenPoint(zeroPoint));
-
-}
 

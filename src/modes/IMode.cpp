@@ -3,7 +3,7 @@
 
 bool IMode::debugMode = false;
 
-void IMode::setWindow(GLFWwindow* newWindow) {
+void IMode::setWindow(Window* newWindow) {
   window = newWindow;
   setMouseCallback();
   setKeyCallback();
@@ -19,7 +19,7 @@ void IMode::changeDebugState() {
 }
 
 void IMode::setKeyCallback() {
-  glfwSetKeyCallback(window, keyCallback);
+  glfwSetKeyCallback(window->getWindow(), keyCallback);
 }
 
 void IMode::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
