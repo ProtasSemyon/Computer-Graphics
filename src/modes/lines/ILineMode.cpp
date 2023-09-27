@@ -44,6 +44,7 @@ void ILineMode::draw() {
       if (glfwGetKey(window->getWindow(), DEBUG_NEXT_STEP) == GLFW_PRESS) {
         drawIndex++;
         lineForDraw.emplace_back(currentLine[drawIndex]);
+        std::cerr << "x: " << currentLine[drawIndex].x << " y: " << currentLine[drawIndex].y << std::endl;
       }
       if (glfwGetKey(window->getWindow(), DEBUG_MODE_KEY) == GLFW_PRESS) {
         break;
@@ -83,7 +84,6 @@ void ILineMode::mouseButtonCallbackNoDebug(GLFWwindow* window, int button, int a
     double xpos;
     double ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
-    std::cerr << "x: " << xpos << " y: " << ypos << std::endl;
 
     startDrawing = true;
     startPoint = {(int)xpos, (int)ypos};
@@ -93,7 +93,6 @@ void ILineMode::mouseButtonCallbackNoDebug(GLFWwindow* window, int button, int a
     double xpos;
     double ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
-    std::cerr << "x: " << xpos << " y: " << ypos << std::endl;
 
     startDrawing = false;
     DrawableObjectPool::getInstance().addObject(new Line(currentLine));
@@ -105,7 +104,6 @@ void ILineMode::mouseButtonCallbackDebug(GLFWwindow* window, int button, int act
     double xpos;
     double ypos;
     glfwGetCursorPos(window, &xpos, &ypos);
-    std::cerr << "x: " << xpos << " y: " << ypos << std::endl;
 
     selectFirstPoint = !selectFirstPoint;
     if (selectFirstPoint) {

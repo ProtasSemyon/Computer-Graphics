@@ -107,6 +107,11 @@ void Window::drawMenu() {
 			ImGui::EndMenu();
 		}
 	}
+	
+	ImGui::Separator();
+	if (ImGui::MenuItem("Debug")) {
+		IMode::changeDebugState();
+	}
 }
 
 GLFWwindow* Window::getWindow() const {

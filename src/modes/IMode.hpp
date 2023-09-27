@@ -19,14 +19,14 @@ public:
 
   void setWindow(Window* newWindow);
 
+  static void changeDebugState();
+
 protected:
   void setMouseCallback();
 
   void setKeyCallback();
 
   virtual void setMouseCallbackInHeritor() = 0;
-
-  static void changeDebugState();
 
   Window* window;
 
