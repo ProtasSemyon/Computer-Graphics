@@ -2,6 +2,7 @@
 
 #include "Window.hpp"
 #include "config/MenuConfig.hpp"
+#include <iostream>
 
 
 Window::Window(const std::string &name, int width, int height) : width(width), height(height){
@@ -30,6 +31,23 @@ Window::Window(const std::string &name, int width, int height) : width(width), h
 	glMatrixMode(GL_MODELVIEW);
 }
 
+void OsOpenInShell(const char* path)
+{
+#ifdef _WIN32
+    // Note: executable path must use backslashes!
+    ::ShellExecuteA(NULL, "open", path, NULL, NULL, SW_SHOWDEFAULT);
+#else
+#if __APPLE__
+    const char* open_executable = "open";
+#else
+    const char* open_executable = "xdg-open";
+#endif
+    char command[256];
+    snprintf(command, 256, "%s \"%s\"", open_executable, path);
+    system(command);
+#endif
+}
+
 void Window::startMainLoop() {
   do{		
 		glfwPollEvents();
@@ -50,6 +68,20 @@ void Window::startMainLoop() {
 			ImGui::EndPopup();
 		} else {
 			isMenuOpened = false;
+		}
+
+		if (open_about) {
+			ImGui::OpenPopup("About");
+		}
+		if (ImGui::BeginPopup("About")){
+			ImGui::SetWindowFontScale(width / FONT_SCALE_MILTIPLICATOR);
+
+			ImGui::Text("Protas Semyon");
+			if (ImGui::Button("GitHub: https://github.com/ProtasSemyon/Computer-Graphics")){
+				OsOpenInShell("https://github.com/ProtasSemyon/Computer-Graphics");
+				open_about = false;
+			}
+			ImGui::EndPopup();
 		}
 
 		// Render your main application here
@@ -107,10 +139,15 @@ void Window::drawMenu() {
 			ImGui::EndMenu();
 		}
 	}
-	
+
 	ImGui::Separator();
 	if (ImGui::MenuItem("Debug")) {
 		IMode::changeDebugState();
+	}
+
+	ImGui::Separator();
+	if (ImGui::MenuItem("About")) {
+		open_about = true;
 	}
 }
 

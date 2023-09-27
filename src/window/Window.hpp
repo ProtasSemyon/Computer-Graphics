@@ -49,4 +49,7 @@ private:
   int width;
   
   int height;
+
+  bool open_about = false;
+
 };
