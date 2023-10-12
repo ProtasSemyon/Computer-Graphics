@@ -6,4 +6,11 @@ protected:
 
 private:
   void addPoint(std::vector<Point> &points, int x, int y, float color, bool inverted) const;
+
+  std::vector<Point> getVerticalLine(Point startPoint, Point endPoint) const;
+
+  std::vector<Point> getHorizontalLine(Point startPoint, Point endPoint) const;
+
+  std::vector<Point> getDiagonalLine(Point startPoint, Point endPoint) const;
+
 };

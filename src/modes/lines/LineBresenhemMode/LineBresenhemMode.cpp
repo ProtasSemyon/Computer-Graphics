@@ -24,7 +24,7 @@ std::vector<Point> LineBresenhemMode::getLine(Point startPoint, Point endPoint) 
     {
       error -= deltaY;
       x1 += signX;
-    }
+    } 
     if(error2 < deltaX) 
     {
       error += deltaX;

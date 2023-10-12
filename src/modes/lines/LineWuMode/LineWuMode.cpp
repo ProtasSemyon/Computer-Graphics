@@ -17,6 +17,18 @@ std::vector<Point> LineWuMode::getLine(Point startPoint, Point endPoint) {
   float y1 = startPoint.y;
   float y2 = endPoint.y;
 
+  if (x1 == x2) {
+    return getVerticalLine(startPoint, endPoint);
+  }
+
+  if (y1 == y2) {
+    return getHorizontalLine(startPoint, endPoint);
+  }
+
+  if (std::abs(x1 - x2) == std::abs(y1 - y2)) {
+    return getDiagonalLine(startPoint, endPoint);
+  }
+
   bool inverted = false;
 
   if (std::abs(x1 - x2) < std::abs(y1 - y2)) {
@@ -68,5 +80,44 @@ void LineWuMode::addPoint(std::vector<Point> &points, int x, int y, float color,
   } else {
     points.emplace_back(x, y, Color(color, color, color, 1.0f));
   }
+}
+
+std::vector<Point> LineWuMode::getVerticalLine(Point startPoint, Point endPoint) const {
+  std::vector<Point> line;
+  line.emplace_back(startPoint);
+  int signY = endPoint.y - startPoint.y > 0 ? 1 : -1;
+  while(startPoint.y != endPoint.y) {
+    startPoint.y += signY;
+    line.emplace_back(startPoint);
+  }
+
+  return line;
+}
+
+std::vector<Point> LineWuMode::getHorizontalLine(Point startPoint, Point endPoint) const {
+  std::vector<Point> line;
+  line.emplace_back(startPoint);
+  int signX = endPoint.x - startPoint.x > 0 ? 1 : -1;
+  while(startPoint.x != endPoint.x) {
+    startPoint.x += signX;
+    line.emplace_back(startPoint);
+  }
+
+  return line;
+}
+
+std::vector<Point> LineWuMode::getDiagonalLine(Point startPoint, Point endPoint) const {
+  std::vector<Point> line;
+  line.emplace_back(startPoint);
+  int signX = endPoint.x - startPoint.x > 0 ? 1 : -1;
+  int signY = endPoint.y - startPoint.y > 0 ? 1 : -1;
+
+  while(startPoint.x != endPoint.x && startPoint.y != endPoint.y) {
+    startPoint.y += signY;
+    startPoint.x += signX;
+    line.emplace_back(startPoint);
+  }
+
+  return line;
 }
 

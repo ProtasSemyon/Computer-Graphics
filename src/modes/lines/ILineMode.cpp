@@ -99,7 +99,7 @@ void ILineMode::mouseButtonCallbackNoDebug(GLFWwindow* window, int button, int a
   }
 }
 
-void ILineMode::mouseButtonCallbackDebug(GLFWwindow* window, int button, int action, int mods) {
+void ILineMode::mouseButtonCallbackDebug(GLFWwindow* window, int button, int action, int /*mods*/) {
   if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {
     double xpos;
     double ypos;

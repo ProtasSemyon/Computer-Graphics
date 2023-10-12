@@ -1,7 +1,6 @@
 #include "src/window/Window.hpp"
 
-int main()
-{
+int main() {
 	Window window("Test Application");
 	window.startMainLoop();
 	return 0;

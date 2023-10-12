@@ -70,11 +70,11 @@ void Window::startMainLoop() {
 			isMenuOpened = false;
 		}
 
-		if (open_about) {
+		if (open_about) {//FIXME
 			ImGui::OpenPopup("About");
 		}
 		if (ImGui::BeginPopup("About")){
-			ImGui::SetWindowFontScale(width / FONT_SCALE_MILTIPLICATOR);
+			ImGui::SetWindowFontScale(FONT_SCALE_MILTIPLICATOR);
 
 			ImGui::Text("Protas Semyon");
 			if (ImGui::Button("GitHub: https://github.com/ProtasSemyon/Computer-Graphics")){
@@ -129,7 +129,7 @@ void Window::setMode(IMode* newMode) {
 
 void Window::drawMenu() {
 	for (const auto &[menuName, menuElements] : menuConfig) {		
-		ImGui::SetWindowFontScale(width / FONT_SCALE_MILTIPLICATOR);
+		ImGui::SetWindowFontScale(FONT_SCALE_MILTIPLICATOR);
 		if (ImGui::BeginMenu(menuName.c_str())) {
 			for (const auto &[submenuName, submenuElement] : menuElements) {
 				if (ImGui::MenuItem(submenuName.c_str())) {

@@ -14,7 +14,7 @@ const int WIDTH = 1920;
 
 const int HEIGHT = 1080;
 
-const int FONT_SCALE_MILTIPLICATOR = 800;
+const int FONT_SCALE_MILTIPLICATOR = 2;
 
 class IMode;
 class Window {
