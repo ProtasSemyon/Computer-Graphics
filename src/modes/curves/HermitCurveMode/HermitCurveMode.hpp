@@ -2,7 +2,7 @@
 
 #include "modes/curves/ICurveMode.hpp"
 #include "core/matrix/Matrix.hpp"
-#include "core/Point.hpp"
+#include "core/point/Point.hpp"
 
 class HermitCurveMode : public ICurveMode {
 public:

@@ -8,7 +8,8 @@
 #include <imgui_impl_opengl3.h>
 
 #include "modes/IMode.hpp"
-#include "objects/DrawableObjectPool.hpp"
+#include "core/objectPool/ObjectPool.hpp"
+#include "objects/IDrawable.hpp"
 
 const int WIDTH = 1920;
 
@@ -43,6 +44,8 @@ private:
   void draw() const;
 
   void drawMenu();
+
+  void drawObjects(const std::vector<IDrawable*>& objects) const;
 
   bool isMenuOpened;
 

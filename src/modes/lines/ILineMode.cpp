@@ -1,6 +1,6 @@
 #include "modes/lines/ILineMode.hpp"
 #include "objects/Line/Line.hpp"
-#include "objects/DrawableObjectPool.hpp"
+#include "core/objectPool/ObjectPool.hpp"
 #include <iostream>
 
 bool ILineMode::startDrawing = false;
@@ -60,7 +60,8 @@ void ILineMode::draw() {
 		  glfwPollEvents();
     }
     startDrawingDebug = false;
-    DrawableObjectPool::getInstance().addObject(new Line(lineForDraw));
+    Line * lineObject = new Line(currentLine);
+    ObjectPool::getInstance().addObject(lineObject);
   }
 }
 
@@ -95,7 +96,8 @@ void ILineMode::mouseButtonCallbackNoDebug(GLFWwindow* window, int button, int a
     glfwGetCursorPos(window, &xpos, &ypos);
 
     startDrawing = false;
-    DrawableObjectPool::getInstance().addObject(new Line(currentLine));
+    Line * lineObject = new Line(currentLine);
+    ObjectPool::getInstance().addObject(lineObject);
   }
 }
 

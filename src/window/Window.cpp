@@ -116,10 +116,18 @@ void Window::draw() const {
   glClear( GL_COLOR_BUFFER_BIT );
 	
 	glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
-	DrawableObjectPool::getInstance().draw();
+	drawObjects(ObjectPool::getInstance().get<IDrawable>());
 	if (mode) {
 		mode->draw();
 	}
+}
+
+void Window::drawObjects(const std::vector<IDrawable*>& objects) const {
+	for (const auto &object : objects) {
+    if(object) {
+      object->draw();
+    }
+  }
 }
 
 void Window::setMode(IMode* newMode) {

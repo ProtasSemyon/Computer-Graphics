@@ -1,7 +1,6 @@
 #pragma once
 
 #include <GLFW/glfw3.h>
-#include "objects/IDrawable.hpp"
 
 #include "window/Window.hpp"
 

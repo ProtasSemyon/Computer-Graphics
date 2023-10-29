@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "Point.hpp"
+#include "point/Point.hpp"
 
 class IObject {
 public:

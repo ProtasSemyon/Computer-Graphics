@@ -1,7 +1,7 @@
 #pragma once
 
 #include "modes/IMode.hpp"
-#include "core/Point.hpp"
+#include "core/point/Point.hpp"
 
 class ILineMode: public IMode {
 public:
