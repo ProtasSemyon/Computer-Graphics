@@ -45,7 +45,7 @@ private:
 
   void drawMenu();
 
-  void drawObjects(const std::vector<IDrawable*>& objects) const;
+  void drawObjects(const std::vector<std::shared_ptr<IDrawable>>& objects) const;
 
   bool isMenuOpened;
 

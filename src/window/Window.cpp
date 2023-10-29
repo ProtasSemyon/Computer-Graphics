@@ -122,7 +122,7 @@ void Window::draw() const {
 	}
 }
 
-void Window::drawObjects(const std::vector<IDrawable*>& objects) const {
+void Window::drawObjects(const std::vector<std::shared_ptr<IDrawable>>& objects) const {
 	for (const auto &object : objects) {
     if(object) {
       object->draw();

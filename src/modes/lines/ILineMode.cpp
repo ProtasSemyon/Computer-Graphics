@@ -26,14 +26,8 @@ void ILineMode::draw() {
     double xpos;
     double ypos;
     glfwGetCursorPos(window->getWindow(), &xpos, &ypos);
-    currentLine = getLine(startPoint, {(int)xpos, (int)ypos});
-
-    glBegin( GL_POINTS );
-    for(const auto& [x, y, color] : currentLine) {
-      glColor4f(color.r, color.g, color.b, color.a);
-      glVertex2i(x, y);
-    }
-    glEnd();
+    currentDrawObject = std::make_shared<Line>(getLine(startPoint, {(int)xpos, (int)ypos}));
+    currentDrawObject->draw();
   }
 
   if (startDrawingDebug) {
@@ -49,19 +43,14 @@ void ILineMode::draw() {
       if (glfwGetKey(window->getWindow(), DEBUG_MODE_KEY) == GLFW_PRESS) {
         break;
       }
-      glBegin( GL_POINTS );
-        for(const auto& [x, y, color] : lineForDraw) {
-          glColor4f(color.r, color.g, color.b, color.a);
-          glVertex2i(x, y);
-        }
-      glEnd();
+      currentDrawObject = std::make_shared<Line>(lineForDraw);
+      currentDrawObject->draw();
 
       glfwSwapBuffers(window->getWindow());
 		  glfwPollEvents();
     }
     startDrawingDebug = false;
-    Line * lineObject = new Line(currentLine);
-    ObjectPool::getInstance().addObject(lineObject);
+    ObjectPool::getInstance().addObject(currentDrawObject);
   }
 }
 
@@ -96,8 +85,7 @@ void ILineMode::mouseButtonCallbackNoDebug(GLFWwindow* window, int button, int a
     glfwGetCursorPos(window, &xpos, &ypos);
 
     startDrawing = false;
-    Line * lineObject = new Line(currentLine);
-    ObjectPool::getInstance().addObject(lineObject);
+    ObjectPool::getInstance().addObject(currentDrawObject);
   }
 }
 

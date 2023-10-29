@@ -1,17 +1,18 @@
 #pragma once
 
 #include "core/IObject.hpp"
+#include <memory>
 
 class ObjectPool {
 public:
-  void addObject(IObject * object);
+  void addObject(std::shared_ptr<IObject> object);
 
   template<class IType>
-  std::vector<IType*> get();
+  std::vector<std::shared_ptr<IType>> get();
 
   static ObjectPool& getInstance();
 private:
-  std::vector<IObject*> objects;
+  std::vector<std::shared_ptr<IObject>> objects;
 
   ObjectPool() = default;
   ObjectPool(const ObjectPool&) = default;
@@ -19,11 +20,11 @@ private:
 };
 
 template<class IType>
-std::vector<IType*> ObjectPool::get() {
-  std::vector<IType*> result;
+std::vector<std::shared_ptr<IType>> ObjectPool::get() {
+  std::vector<std::shared_ptr<IType>> result;
 
   for (const auto & object : objects) {
-    if (auto* castResult = dynamic_cast<IType*>(object)) {
+    if (auto castResult = std::dynamic_pointer_cast<IType>(object)) {
       result.emplace_back(castResult);
     }
   }

@@ -1,6 +1,6 @@
 #include "ObjectPool.hpp"
 
-void ObjectPool::addObject(IObject *object) {
+void ObjectPool::addObject(std::shared_ptr<IObject> object) {
   objects.emplace_back(object);
 }
 

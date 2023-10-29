@@ -3,6 +3,8 @@
 
 bool IMode::debugMode = false;
 
+std::shared_ptr<IDrawable> IMode::currentDrawObject = nullptr;
+
 void IMode::setWindow(Window* newWindow) {
   window = newWindow;
   setMouseCallback();

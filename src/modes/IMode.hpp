@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 
 #include "window/Window.hpp"
+#include "objects/IDrawable.hpp"
 
 const int DEBUG_MODE_KEY = GLFW_KEY_D;
 
@@ -32,6 +33,8 @@ protected:
   static bool debugMode;
 
   static int round(float x);
+
+  static std::shared_ptr<IDrawable> currentDrawObject;
 
 private:
   static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
