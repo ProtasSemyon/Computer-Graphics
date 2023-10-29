@@ -1,6 +1,6 @@
 #include "modes/lines/ILineMode.hpp"
-#include "draw/Line/Line.hpp"
-#include "draw/DrawableObjectPool.hpp"
+#include "objects/Line/Line.hpp"
+#include "objects/DrawableObjectPool.hpp"
 #include <iostream>
 
 bool ILineMode::startDrawing = false;

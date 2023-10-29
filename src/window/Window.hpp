@@ -8,7 +8,7 @@
 #include <imgui_impl_opengl3.h>
 
 #include "modes/IMode.hpp"
-#include "draw/DrawableObjectPool.hpp"
+#include "objects/DrawableObjectPool.hpp"
 
 const int WIDTH = 1920;
 

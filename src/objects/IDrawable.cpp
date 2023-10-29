@@ -1,8 +1,6 @@
-#include "Line.hpp"
+#include "IDrawable.hpp"
 
-Line::Line(const std::vector<Point> &points) : IDrawable(points) {}
-
-void Line::draw() {
+void IDrawable::draw() const {
   glBegin( GL_POINTS );
   for(const auto& [x, y, color] : points) {
     glColor4f(color.r, color.g, color.b, color.a);
@@ -10,3 +8,4 @@ void Line::draw() {
   }
   glEnd();
 }
+

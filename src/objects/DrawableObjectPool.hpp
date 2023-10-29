@@ -1,6 +1,6 @@
 #pragma once
 
-#include "draw/IDrawable.hpp"
+#include "IDrawable.hpp"
 
 class DrawableObjectPool {
 public:
