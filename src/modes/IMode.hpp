@@ -2,6 +2,7 @@
 
 #include <GLFW/glfw3.h>
 
+#include "core/refPoint/RefPoint.hpp"
 #include "window/Window.hpp"
 #include "objects/IDrawable.hpp"
 
@@ -22,10 +23,12 @@ public:
 
   static void changeDebugState();
 
+  virtual void finishDraw(const std::vector<Point> &objPoints, const std::vector<RefPoint> &objRefPoints) {}
+
 protected:
   void setMouseCallback();
 
-  void setKeyCallback();
+  virtual void setKeyCallback();
 
   virtual void setMouseCallbackInHeritor() = 0;
 

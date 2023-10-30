@@ -9,6 +9,8 @@ public:
   std::vector<Point> getCurve(const std::vector<Point>& points) override;
 
 private:
+  std::shared_ptr<ICurveMode> getPtr() override;
+
   void setPoints(const Point &startPoint, const Point &endPoint, const Point& startPointTangent, const Point& endPointTangent);
 
   Point getPoint(double time) const;

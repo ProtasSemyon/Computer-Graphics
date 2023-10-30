@@ -1,4 +1,5 @@
 #include "ICurveMode.hpp"
+#include "modes/editor/EditorMode.hpp"
 #include "objects/Curve/Curve.hpp"
 
 const int REF_POINT_COUNT = 4;
@@ -35,7 +36,6 @@ void ICurveMode::mouseButtonCallback(GLFWwindow* window, int button, int action,
     points.emplace_back(xpos - startPoint.x, (ypos - startPoint.y) * -1);
     refPoints.emplace_back(xpos, ypos);
   }
-
 }
 
 void ICurveMode::draw() {
@@ -52,13 +52,8 @@ void ICurveMode::draw() {
     for (auto & point : currentCurve) {
       point.toScreenPoint(startPoint);
     }
-    currentDrawObject = std::make_shared<Curve>(currentCurve, refPoints, nullptr);
 
-    //startEditMode(currentDrawObject);
-    ObjectPool::getInstance().addObject(currentDrawObject);
-
-    refPoints.clear();
-    points.clear();
+    startEditMode(std::make_shared<Curve>(currentCurve, refPoints, getPtr()));
   }
 }
 
@@ -67,6 +62,13 @@ std::vector<Point> ICurveMode::getPoints(const std::vector<Point> &points) {
 }
 
 void ICurveMode::startEditMode(const std::shared_ptr<IEditable>& objForEdit) {
+  window->setMode(new EditorMode(objForEdit, getPtr()));
+}
 
+void ICurveMode::finishDraw(const std::vector<Point> &objPoints, const std::vector<RefPoint> &objRefPoints) {
+  ObjectPool::getInstance().addObject(std::make_shared<Curve>(objPoints, refPoints, getPtr()));
+
+  refPoints.clear();
+  points.clear();
 }
 

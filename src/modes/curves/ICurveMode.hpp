@@ -12,6 +12,8 @@ public:
   std::vector<Point> getPoints(const std::vector<Point> &points) override;
 
 private:
+  virtual std::shared_ptr<ICurveMode> getPtr() = 0;
+
   void setMouseCallbackInHeritor() override;
 
   void startEditMode(const std::shared_ptr<IEditable>& objForEdit) override;
@@ -30,5 +32,6 @@ private:
 
   static std::vector<Point> points;
 
+  void finishDraw(const std::vector<Point> &objPoints, const std::vector<RefPoint> &objRefPoints);
 
 };

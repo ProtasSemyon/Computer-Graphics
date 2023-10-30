@@ -2,11 +2,13 @@
 
 #include <cmath>
 
+const int POINT_MULTIPLICATOR = 10;
+
 void HermitCurveMode::setPoints(const Point &newStartPoint, const Point &newEndPoint, const Point& newStartPointTangent, const Point& newEndPointTangent) {
   startPoint = newStartPoint;
   endPoint = newEndPoint;
-  startPointTangent = newStartPointTangent;
-  endPointTangent = newEndPointTangent;
+  startPointTangent = newStartPointTangent - newStartPoint;
+  endPointTangent = newEndPointTangent - newEndPoint;
 
   multiplicateMatrix = Matrix(
     {
@@ -29,7 +31,8 @@ std::vector<Point> HermitCurveMode::getCurve(const std::vector<Point>& points) {
 
   std::vector<Point> result;
 
-  int maxTime = 10000;
+  auto delta = points[0] - points[1];
+  int maxTime = std::max(std::abs(delta.x), std::abs(delta.y)) * POINT_MULTIPLICATOR + 2000;
 
   for (int time = 0; time <= maxTime; time++) {
     result.emplace_back(getPoint((double)(time)/maxTime) - endPoint);
@@ -38,3 +41,6 @@ std::vector<Point> HermitCurveMode::getCurve(const std::vector<Point>& points) {
   return result;
 }
 
+std::shared_ptr<ICurveMode> HermitCurveMode::getPtr() {
+  return std::shared_ptr<HermitCurveMode>(this);
+}
