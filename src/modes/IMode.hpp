@@ -8,6 +8,7 @@
 const int DEBUG_MODE_KEY = GLFW_KEY_D;
 
 class Window;
+class IEditable;
 
 class IMode {
 public:
@@ -27,6 +28,8 @@ protected:
   void setKeyCallback();
 
   virtual void setMouseCallbackInHeritor() = 0;
+
+  virtual void startEditMode(const std::shared_ptr<IEditable>& objForEdit) {}
 
   Window* window;
 

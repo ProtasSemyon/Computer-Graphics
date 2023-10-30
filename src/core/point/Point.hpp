@@ -21,4 +21,5 @@ struct Point {
   int y;
   Color color;
   Point& toScreenPoint(const Point &zeroPoint);
+  Point operator-(const Point & rhs) const;
 };

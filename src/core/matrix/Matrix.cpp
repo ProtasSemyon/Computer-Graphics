@@ -1,19 +1,13 @@
 #include "Matrix.hpp"
 #include <stdexcept>
 
-Matrix::Matrix(int rows, int cols): rows(rows), cols(cols){
+Matrix::Matrix(int rows, int cols): data(rows, std::vector<double>(cols, 0)), rows(rows), cols(cols) {
 }
 
-Matrix::Matrix(const std::vector<std::vector<double> > & data){
-    this->data = data;
-    rows = data.size();
-    cols = data[0].size();
+Matrix::Matrix(const std::vector<std::vector<double> > & data) : data(data), rows(data.size()), cols(data[0].size()){
 }
 
-Matrix::Matrix(const std::vector<double> & data){
-    this->data.push_back(data);
-    rows = 1;
-    cols = data.size();
+Matrix::Matrix(const std::vector<double> & data) : data({data}), rows(1), cols(data.size()){
 }
 
 Matrix Matrix::transpose() const {

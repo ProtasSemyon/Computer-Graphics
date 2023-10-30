@@ -6,12 +6,14 @@
 
 class HermitCurveMode : public ICurveMode {
 public:
+  std::vector<Point> getCurve(const std::vector<Point>& points) override;
+
+private:
   void setPoints(const Point &startPoint, const Point &endPoint, const Point& startPointTangent, const Point& endPointTangent);
 
   Point getPoint(double time) const;
 
-private:
- const Matrix hermitMatrix = Matrix(
+  const Matrix hermitMatrix = Matrix(
  {{2, -2, 1, 1},
   {-3, 3, -2, -1},
   {0, 0, 1, 0},

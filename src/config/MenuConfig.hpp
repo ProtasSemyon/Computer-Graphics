@@ -2,6 +2,7 @@
 #include <string>
 #include <memory>
 
+#include "modes/curves/HermitCurveMode/HermitCurveMode.hpp"
 #include "modes/lines/LineDDAMode/LineDDAMode.hpp"
 #include "modes/lines/LineBresenhemMode/LineBresenhemMode.hpp"
 #include "modes/lines/LineWuMode/LineWuMode.hpp"
@@ -25,5 +26,10 @@ const std::unordered_map<std::string, std::unordered_map<std::string, std::share
     {"Bresenhem", std::make_shared<LineBresenhemMode>()},
     {"DDA", std::make_shared<LineDDAMode>()}
   }
+  },
+  {"Curve", {
+    {"Hermit Curve", std::make_shared<HermitCurveMode>()}
+    }
   }
-};
+  }
+;

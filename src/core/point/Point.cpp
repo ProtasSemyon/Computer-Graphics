@@ -13,3 +13,8 @@ Point& Point::toScreenPoint(const Point &zeroPoint) {
   y = zeroPoint.y - y;
   return *this;
 }
+
+Point Point::operator-(const Point & rhs) const {
+  return {x - rhs.x, y - rhs.y};
+}
+
