@@ -4,12 +4,16 @@
 #include "modes/IMode.hpp"
 #include "modes/IDrawer.hpp"
 
+const int REF_POINT_COUNT = 4;
 
 class ICurveMode : public IMode, public IDrawer {
 public:
   void draw() override;
 
   std::vector<Point> getPoints(const std::vector<Point> &points) override;
+
+protected:
+  static std::vector<Point> points;
 
 private:
   virtual std::shared_ptr<ICurveMode> getPtr() = 0;
@@ -29,8 +33,6 @@ private:
   static std::vector<RefPoint> refPoints;
 
   static Point startPoint;
-
-  static std::vector<Point> points;
 
   void finishDraw(const std::vector<Point> &objPoints, const std::vector<RefPoint> &objRefPoints) override;
 

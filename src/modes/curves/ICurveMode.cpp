@@ -2,17 +2,13 @@
 #include "modes/editor/EditorMode.hpp"
 #include "objects/Curve/Curve.hpp"
 
-const int REF_POINT_COUNT = 4;
-
 std::vector<Point> ICurveMode::currentLine;
 
 std::vector<RefPoint> ICurveMode::refPoints;
 
 std::vector<Point> ICurveMode::points;
 
-
 Point ICurveMode::startPoint;
-
 
 bool ICurveMode::setRefPointStopCondition() {
   return points.size() == REF_POINT_COUNT;

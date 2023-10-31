@@ -2,6 +2,8 @@
 #include <string>
 #include <memory>
 
+#include "modes/curves/BSplineMode/BSplineMode.hpp"
+#include "modes/curves/BesieCurveMode/BesieCurveMode.hpp"
 #include "modes/curves/HermitCurveMode/HermitCurveMode.hpp"
 #include "modes/lines/LineDDAMode/LineDDAMode.hpp"
 #include "modes/lines/LineBresenhemMode/LineBresenhemMode.hpp"
@@ -28,7 +30,10 @@ const std::unordered_map<std::string, std::unordered_map<std::string, std::share
   }
   },
   {"Curve", {
-    {"Hermit Curve", std::make_shared<HermitCurveMode>()}
+    {"Hermit Curve", std::make_shared<HermitCurveMode>()},
+    {"Besie Curve", std::make_shared<BesieCurveMode>()},
+    {"B-Spline (closed)", std::make_shared<BSplineMode>(true)},
+    {"B-Spline", std::make_shared<BSplineMode>()}
     }
   }
   }
