@@ -36,6 +36,12 @@ void ICurveMode::mouseButtonCallback(GLFWwindow* window, int button, int action,
     points.emplace_back(xpos - startPoint.x, (ypos - startPoint.y) * -1);
     refPoints.emplace_back(xpos, ypos);
   }
+
+  if (button == GLFW_MOUSE_BUTTON_RIGHT && action == GLFW_PRESS) {
+    refPoints.clear();
+    points.clear();
+  }
+
 }
 
 void ICurveMode::draw() {
@@ -66,9 +72,8 @@ void ICurveMode::startEditMode(const std::shared_ptr<IEditable>& objForEdit) {
 }
 
 void ICurveMode::finishDraw(const std::vector<Point> &objPoints, const std::vector<RefPoint> &objRefPoints) {
-  ObjectPool::getInstance().addObject(std::make_shared<Curve>(objPoints, refPoints, getPtr()));
-
   refPoints.clear();
   points.clear();
+  ObjectPool::getInstance().addObject(std::make_shared<Curve>(objPoints, objRefPoints, getPtr()));
 }
 

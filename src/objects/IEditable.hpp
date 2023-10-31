@@ -13,6 +13,10 @@ public:
 
   std::vector<RefPoint> getRefPoints() const;
 
+  int getDistanceFromPoint(const Point &point) const;
+
+  void setRefPoints(const std::vector<RefPoint>& newRefPoints);
+
   std::shared_ptr<IDrawer> getDrawMode() const;
 
 private:

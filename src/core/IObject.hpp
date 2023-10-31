@@ -9,6 +9,8 @@ public:
 
   IObject(const std::vector<Point>& points);
 
+  void setPoints(const std::vector<Point>& newPoints);
+
   virtual ~IObject() = default;
 
 protected:

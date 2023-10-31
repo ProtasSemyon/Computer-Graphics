@@ -7,6 +7,8 @@ class ObjectPool {
 public:
   void addObject(std::shared_ptr<IObject> object);
 
+  void deleteObject(const std::shared_ptr<IObject> &objectAddr);
+
   template<class IType>
   std::vector<std::shared_ptr<IType>> get();
 

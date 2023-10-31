@@ -32,6 +32,6 @@ private:
 
   static std::vector<Point> points;
 
-  void finishDraw(const std::vector<Point> &objPoints, const std::vector<RefPoint> &objRefPoints);
+  void finishDraw(const std::vector<Point> &objPoints, const std::vector<RefPoint> &objRefPoints) override;
 
 };

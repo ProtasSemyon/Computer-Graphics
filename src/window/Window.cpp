@@ -2,6 +2,7 @@
 
 #include "Window.hpp"
 #include "config/MenuConfig.hpp"
+#include "modes/selector/SelectorMode.hpp"
 #include <iostream>
 
 
@@ -146,6 +147,10 @@ void Window::drawMenu() {
 			}
 			ImGui::EndMenu();
 		}
+	}
+	ImGui::Separator();
+	if (ImGui::MenuItem("Edit mode")) {
+		setMode(new SelectorMode());
 	}
 
 	ImGui::Separator();
