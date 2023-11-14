@@ -8,6 +8,10 @@ Point::Point(int x, int y) : x(x), y(y) {}
 
 Point::Point(int x, int y, Color color) : x(x), y(y), color(color) {}
 
+Point::Point(int x, int y, int z) : x(x), y(y), z(z) {}
+
+Point::Point(int x, int y, int z, Color color) : x(x), y(y), z(z), color(color) {}
+
 Point& Point::toScreenPoint(const Point &zeroPoint) {
   x += zeroPoint.x;
   y = zeroPoint.y - y;
@@ -16,5 +20,17 @@ Point& Point::toScreenPoint(const Point &zeroPoint) {
 
 Point Point::operator-(const Point & rhs) const {
   return {x - rhs.x, y - rhs.y};
+}
+
+int Point::getX() const {
+  return x;
+}
+
+int Point::getY() const {
+  return y;
+}
+
+Color Point::getColor() const {
+  return color;
 }
 
