@@ -14,11 +14,11 @@ public:
 
   static std::vector<Point> getCircle(const Point& startPoint, const Point& endPoint, const Point& maxPoint, const Color& color = BLACK);
 
-  static std::vector<Point> getEllipse(const Point& startPoint, const Point& endPoint, const Color& color = BLACK);
+  static std::vector<Point> getEllipse(const Point& startPoint, const Point& endPoint, const Point& maxPoint, const Color& color = BLACK);
 
-  static std::vector<Point> getHyperbola(const Point& startPoint, const Point& endPoint, bool isHorizontal = true, const Color& color = BLACK);
+  static std::vector<Point> getHyperbola(const Point& startPoint, const Point& endPoint, const Point& maxPoint, bool isHorizontal = true, const Color& color = BLACK);
 
-  static std::vector<Point> getParabola(const Point& startPoint, const Point& endPoint, const Color& color = BLACK);
+  static std::vector<Point> getParabola(const Point& startPoint, const Point& endPoint, const Point& maxPoint, const Color& color = BLACK);
 
   static std::vector<Point> getHermitCurve(const std::vector<Point>& controlPoints, const Color& color = BLACK);
 
