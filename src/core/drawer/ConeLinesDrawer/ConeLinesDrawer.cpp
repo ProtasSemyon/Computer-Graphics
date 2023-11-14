@@ -1,10 +1,10 @@
 #include "ConeLinesDrawer.hpp"
 #include <algorithm>
 
-std::vector<Point> ConeLinesDrawer::getLine(Point startPoint, Point endPoint, const Color &color) {
+PointVector ConeLinesDrawer::getPoints(Point startPoint, Point endPoint, const Color &color) {
   initialisation(startPoint, endPoint);
 
-  std::vector<Point> points;
+  PointVector points;
 
   int x = getStartX();
   int y = getStartY();

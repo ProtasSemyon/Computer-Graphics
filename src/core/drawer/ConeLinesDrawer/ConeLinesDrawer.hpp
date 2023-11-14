@@ -4,7 +4,7 @@
 
 class ConeLinesDrawer {
 public:
-  PointVector getLine(Point startPoint, Point endPoint, const Color & color);
+  PointVector getPoints(Point startPoint, Point endPoint, const Color & color);
 
   void setMaxX(int x);
 
