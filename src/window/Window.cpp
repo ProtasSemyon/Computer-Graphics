@@ -2,6 +2,12 @@
 #include <iostream>
 #include "config/MenuConfig.hpp"
 #include "callback/CallbackManager.hpp"
+#include "utils/Utils.hpp"
+
+const std::string CREATOR_NAME = "Protas Semyon";
+const std::string GIT_URL = "https://github.com/ProtasSemyon/Computer-Graphics";
+const std::string GIT = "GitHub: ";
+const std::string ABOUT = "About";
 
 Window::Window(const std::string &name, int width, int height) : width(width), height(height) {
   if( !glfwInit() ){
@@ -100,8 +106,7 @@ void Window::drawMenu() {
 
   for (const auto &[menuName, menuElements] : selectedModeConfig) {		
 		ImGui::SetWindowFontScale(FONT_SCALE_MILTIPLICATOR);
-    std::string menuLabel = "\n" + menuName + "\n\n";
-		if (ImGui::BeginMenu(menuLabel.c_str())) {
+		if (ImGui::BeginMenu(formatForOutput(menuName).c_str())) {
 			for (const auto &[submenuName, submenuElement] : menuElements) {
         std::string submenuLabel = submenuName;
 				if (ImGui::Button(submenuLabel.c_str(), ImVec2(getMenuSize().x * 1.5, 50))) {
@@ -112,11 +117,16 @@ void Window::drawMenu() {
 		}
     ImGui::Separator();
 	}
+
+  drawAbout();
+
+  ImGui::Separator();
+
   ImGui::PopStyleColor(3);
 }
 
 ImVec2 Window::getMenuSize() {
-  return ImVec2(getWidth() / 10, getHeight());
+  return ImVec2(getWidth() / 10.0f, getHeight());
 }
 
 
@@ -129,3 +139,19 @@ int Window::getHeight() {
   glfwGetWindowSize(window, &width, &height);
   return height;
 }
+
+void Window::drawAbout() {
+  if (ImGui::BeginMenu(formatForOutput(ABOUT).c_str())){
+
+    ImGui::Text("%s", CREATOR_NAME.c_str());
+    if (ImGui::Button((GIT + GIT_URL).c_str())){
+      osOpenInShell(GIT_URL.c_str());
+    }
+    ImGui::EndPopup();
+  }
+}
+
+std::string Window::formatForOutput(const std::string& str) {
+  return "\n" + str + "\n\n";
+}
+

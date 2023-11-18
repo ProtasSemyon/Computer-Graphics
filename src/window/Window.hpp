@@ -29,11 +29,15 @@ public:
   int getHeight();
 
 private:
+  static std::string formatForOutput(const std::string& str);
+
   void draw();
 
   void drawImGui();
 
   void drawMenu();
+
+  static void drawAbout();
 
   ImVec2 getMenuSize();
 
