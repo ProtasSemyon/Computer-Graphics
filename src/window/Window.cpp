@@ -1,6 +1,7 @@
 #include "Window.hpp"
 #include <iostream>
 #include "config/MenuConfig.hpp"
+#include "callback/CallbackManager.hpp"
 
 Window::Window(const std::string &name, int width, int height) : width(width), height(height) {
   if( !glfwInit() ){
@@ -12,6 +13,8 @@ Window::Window(const std::string &name, int width, int height) : width(width), h
 		glfwTerminate();
     throw std::invalid_argument("Failed to open GLFW window");
 	}
+
+  CallbackManager::setCallback(window);
 
 	glfwMakeContextCurrent(window);
 
@@ -75,11 +78,10 @@ void Window::drawImGui() {
   style.Colors[ImGuiCol_Header] = ImVec4(0.3f, 0.3f, 0.6f, 1.0f);
   style.Colors[ImGuiCol_HeaderHovered] = ImVec4(0.4f, 0.4f, 0.8f, 1.0f);
   style.Colors[ImGuiCol_Text] = ImVec4(0.0f, 0.0f, 0.0f, 1.0f);
-  style.Colors[ImGuiCol_PopupBg] = ImVec4(0.8f, 0.8f, 0.8f, 0.8f);  // Измените цвет по вашему вкусу
+  style.Colors[ImGuiCol_PopupBg] = ImVec4(0.8f, 0.8f, 0.8f, 0.8f);  
   style.ItemInnerSpacing = ImVec2(10, 10);
 
   drawMenu();
-
 
   ImGui::End();
 
@@ -103,7 +105,7 @@ void Window::drawMenu() {
 			for (const auto &[submenuName, submenuElement] : menuElements) {
         std::string submenuLabel = submenuName;
 				if (ImGui::Button(submenuLabel.c_str(), ImVec2(getMenuSize().x * 1.5, 50))) {
-					std::cout << "Bruh" << std::endl; //TODO: call draw method
+          CallbackManager::getInstance().addObject(submenuElement);
 				}
 			}
 			ImGui::EndMenu();

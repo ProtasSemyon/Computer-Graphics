@@ -1,12 +1,12 @@
+#include "modes/IMode.hpp"
 #include <unordered_map>
 #include <string>
 #include <memory>
 
-//TODO: change int to something
 
-const std::unordered_map<std::string, std::unordered_map<std::string, int *>> selectedModeConfig {
+const std::unordered_map<std::string, std::unordered_map<std::string, std::shared_ptr<IMode>>> selectedModeConfig {
   {"Cone line", {
-    {"Parabola", nullptr},
+    {"Parabola", std::make_shared<IMode>()},
     {"Hyperbola", nullptr},
     {"Circle", nullptr},
     {"Ellipse", nullptr}
