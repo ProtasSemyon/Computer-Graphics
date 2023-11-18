@@ -1,6 +1,8 @@
 #include "Parabola.hpp"
 #include "core/drawer/Drawer.hpp"
 #include <stdexcept>
+#include "objects/lineCone/Constant.hpp"
+
 
 Parabola::Parabola(const PointVector& points, const Color &color) : IObject(points, color) {
 }
@@ -10,5 +12,5 @@ PointVector Parabola::getPointsForDrawing() const {
     throw std::invalid_argument("Must be two points");
   }
 
-  return Drawer::getParabola(basePoints.at(0), basePoints.at(1), color);
+  return Drawer::getParabola(basePoints.at(0), basePoints.at(1), maxPoint, color);
 }

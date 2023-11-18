@@ -10,7 +10,7 @@ public:
 
   void setMaxY(int y);
 
-  virtual ~ConeLinesDrawer();
+  virtual ~ConeLinesDrawer() = default;
 
 protected:
   virtual void addPoint(PointVector& points, const Point & point) const;
