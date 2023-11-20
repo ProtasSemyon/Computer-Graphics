@@ -12,5 +12,5 @@ public:
 
   void keyboardCallback(GLFWwindow* window, int key, int scancode, int action, int mods) override;
 
-  virtual void drawInCanvas(std::shared_ptr<Canvas> &canvas) = 0;
+  virtual void drawInCanvas(std::shared_ptr<Canvas> &canvas, const Point &centerPoint) = 0;
 };

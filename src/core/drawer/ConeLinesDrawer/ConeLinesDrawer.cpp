@@ -6,6 +6,8 @@ PointVector ConeLinesDrawer::getPoints(Point startPoint, Point endPoint, const C
 
   PointVector points;
 
+  zeroPoint = startPoint;
+
   int x = getStartX();
   int y = getStartY();
   int limitX = getLimitX(startPoint);
@@ -37,7 +39,6 @@ PointVector ConeLinesDrawer::getPoints(Point startPoint, Point endPoint, const C
       continue;
     }
   }
-  addPoints(points, x, y, color);
 
   return points;
 }
@@ -59,15 +60,14 @@ bool ConeLinesDrawer::isDiagonalOrVertical(int error) const {
 }
 
 void ConeLinesDrawer::addPoint(std::vector<Point>& points, const Point &point) const {
-  if (point.getX() < 0 || point.getY() < 0 || point.getX() > maxX || point.getY() > maxY) return;
   points.emplace_back(point);
 }
 
 void ConeLinesDrawer::addPoints(std::vector<Point>& points, int x, int y, const Color &color) const {
-  addPoint(points, Point(-x, -y, color));
-  addPoint(points, Point(-x, y, color));
-  addPoint(points, Point(x, y, color));
-  addPoint(points, Point(x, -y, color));
+  addPoint(points, Point(-x, -y, color) + zeroPoint);
+  addPoint(points, Point(-x, y, color) + zeroPoint);
+  addPoint(points, Point(x, y, color) + zeroPoint);
+  addPoint(points, Point(x, -y, color) + zeroPoint);
 }
 
 int ConeLinesDrawer::deltaX() const {

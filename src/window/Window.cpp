@@ -64,9 +64,11 @@ void Window::draw() {
   glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
   glClear( GL_COLOR_BUFFER_BIT );
 
-  ModeManager::getInstance().getCurrentMode()->drawInCanvas(canvas);
+  if (!isMenuOpened) {
+  ModeManager::getInstance().getCurrentMode()->drawInCanvas(canvas, screenCenter);
+  }
 
-  auto drawPoints = canvas->getPointsForDrawing();
+  auto drawPoints = canvas->getPointsForDrawing(screenCenter);
   glBegin( GL_POINTS );
   for (const auto& objPoints : drawPoints) {
     for (const auto& point : objPoints) {
@@ -122,16 +124,20 @@ void Window::drawMenu() {
   for (const auto &[menuName, menuElements] : selectedModeConfig) {		
 		ImGui::SetWindowFontScale(FONT_SCALE_MILTIPLICATOR);
 		if (ImGui::BeginMenu(formatForOutput(menuName).c_str())) {
+      isMenuOpened = true;
 			for (const auto &[submenuName, submenuElement] : menuElements) {
         std::string submenuLabel = submenuName;
 				if (ImGui::Button(submenuLabel.c_str(), ImVec2(getMenuSize().x * 1.5, 50))) {
+          CallbackManager::getInstance().deleteObject(ModeManager::getInstance().getCurrentMode());
           ModeManager::getInstance().exitCurrentMode();
           CallbackManager::getInstance().addObject(submenuElement);
           ModeManager::getInstance().enterMode(submenuElement);
 				}
 			}
 			ImGui::EndMenu();
-		}
+		} else {
+      isMenuOpened = false;
+    }
     ImGui::Separator();
 	}
 
@@ -181,13 +187,18 @@ void Window::checkSize() {
     oldWidth = width;
     oldHeight = height;
 
-    glViewport(0, 0, width, height);
+    updateScreenCenter();
 
+    glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0, width - 1, height - 1, 0, 0, 1);
 
   }
+}
+
+void Window::updateScreenCenter() {
+  screenCenter = Point(width / 2, height / 2);
 }
 
 

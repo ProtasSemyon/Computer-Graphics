@@ -4,5 +4,5 @@
 
 class DefaultMode : public IMode {
 public:
-  void drawInCanvas(std::shared_ptr<Canvas> &canvas) override;
+  void drawInCanvas(std::shared_ptr<Canvas> &canvas, const Point &centerPoint) override;
 };

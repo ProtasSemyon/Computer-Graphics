@@ -1,16 +1,21 @@
 #include "Canvas.hpp"
+#include "core/utils/Utils.hpp"
 #include "objectPool/ObjectPool.hpp"
 
-std::vector<PointVector> Canvas::getPointsForDrawing() const {
+std::vector<PointVector> Canvas::getPointsForDrawing(const Point &screenCenter) const {
   auto objs = ObjectPool::getInstance().getObjects();
 
   std::vector<PointVector> points;
   for (const auto& object : objs) {
-    points.emplace_back(object->getPointsForDrawing());
+    auto pointsForAdd = object->getPointsForDrawing();
+    convertSystemObjectToScreenObject(pointsForAdd, screenCenter);
+    points.emplace_back(pointsForAdd);
   }
 
   if (dynamicObj) {
-    points.emplace_back(dynamicObj->getPointsForDrawing());
+    auto pointsForAdd = dynamicObj->getPointsForDrawing();
+    convertSystemObjectToScreenObject(pointsForAdd, screenCenter);
+    points.emplace_back(pointsForAdd);
   }
 
   return points;
@@ -24,4 +29,8 @@ void Canvas::setDynamicObj(const std::shared_ptr<IObject>& obj) {
   dynamicObj = obj;
 }
 
-
+void Canvas::convertSystemObjectToScreenObject(PointVector &points, const Point &screenCenter) const {
+  for (auto &point : points) {
+    point = systemPointToScreenPoint(point, screenCenter);
+  }
+}

@@ -41,6 +41,8 @@ public:
 
   Point operator-(const Point & rhs) const;
 
+  Point operator+(const Point & rhs) const;
+
 private:
   int x;
 

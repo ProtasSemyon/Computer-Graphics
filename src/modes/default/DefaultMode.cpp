@@ -1,5 +1,5 @@
 #include "DefaultMode.hpp"
 
-void DefaultMode::drawInCanvas(std::shared_ptr<Canvas> &canvas) {
+void DefaultMode::drawInCanvas(std::shared_ptr<Canvas> &canvas, const Point &centerPoint) {
   
 }

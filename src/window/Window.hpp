@@ -40,6 +40,8 @@ private:
 
   void drawMenu();
 
+  void updateScreenCenter();
+
   static void drawAbout();
 
   ImVec2 getMenuSize();
@@ -57,4 +59,8 @@ private:
   int oldWidth;
 
   int oldHeight;
+
+  bool isMenuOpened;
+
+  Point screenCenter;
 };

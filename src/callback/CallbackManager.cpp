@@ -3,7 +3,6 @@
 
 std::vector<std::shared_ptr<ICallback>> CallbackManager::callbacks;
 
-
 void CallbackManager::addObject(const std::shared_ptr<ICallback>& callback) const {
   if(callback) {
     callbacks.emplace_back(callback);
@@ -37,5 +36,7 @@ void CallbackManager::mouseButtonCallback(GLFWwindow* window, int button, int ac
 }
 
 void CallbackManager::keyboardButtonCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-
+  for (const auto & callback: callbacks) {
+    callback->keyboardCallback(window, key, scancode, action, mods);
+  }
 }
