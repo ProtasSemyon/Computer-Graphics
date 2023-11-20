@@ -18,3 +18,8 @@ ObjectPool& ObjectPool::getInstance() {
   static ObjectPool instance;
   return instance;
 }
+
+std::vector<std::shared_ptr<IObject>> ObjectPool::getObjects() const {
+  return objects;
+}
+

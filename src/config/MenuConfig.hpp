@@ -1,4 +1,5 @@
 #include "modes/IMode.hpp"
+#include "modes/line/BresenhemLineMode/BresenhemLineMode.hpp"
 #include <unordered_map>
 #include <string>
 #include <memory>
@@ -6,7 +7,7 @@
 
 const std::unordered_map<std::string, std::unordered_map<std::string, std::shared_ptr<IMode>>> selectedModeConfig {
   {"Cone line", {
-    {"Parabola", std::make_shared<IMode>()},
+    {"Parabola", nullptr},
     {"Hyperbola", nullptr},
     {"Circle", nullptr},
     {"Ellipse", nullptr}
@@ -14,7 +15,7 @@ const std::unordered_map<std::string, std::unordered_map<std::string, std::share
   },
   {"Line", {
     {"Wu", nullptr},
-    {"Bresenhem", nullptr},
+    {"Bresenhem", std::make_shared<BresenhemLineMode>()},
     {"DDA", nullptr}
   }
   },

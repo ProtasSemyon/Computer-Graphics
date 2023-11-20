@@ -11,6 +11,8 @@ public:
 
   static ObjectPool& getInstance();
 
+  std::vector<std::shared_ptr<IObject>> getObjects() const;
+
 private:
   std::vector<std::shared_ptr<IObject>> objects;
 

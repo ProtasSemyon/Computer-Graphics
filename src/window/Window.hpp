@@ -1,5 +1,6 @@
 #pragma once
 
+#include "window/canvas/Canvas.hpp"
 #include <memory>
 #include <string>
 
@@ -28,6 +29,8 @@ public:
 
   int getHeight();
 
+  GLFWwindow *getWindow();
+
 private:
   static std::string formatForOutput(const std::string& str);
 
@@ -41,10 +44,17 @@ private:
 
   ImVec2 getMenuSize();
 
+  void checkSize();
+
+  std::shared_ptr<Canvas> canvas;
+
   GLFWwindow* window;
 
   int width;
   
   int height;
 
+  int oldWidth;
+
+  int oldHeight;
 };
