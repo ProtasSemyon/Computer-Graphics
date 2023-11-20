@@ -1,6 +1,7 @@
 #include "Drawer.hpp"
 #include "core/utils/Utils.hpp"
 #include <cmath>
+#include <iostream>
 
 #include "core/drawer/ConeLinesDrawer/Circle/CircleDrawer.hpp"
 #include "core/drawer/ConeLinesDrawer/Ellipse/EllipseDrawer.hpp"
@@ -194,9 +195,9 @@ PointVector getDiagonalLine(Point startPoint, Point endPoint, Color color) {
 }
 
 void addPoint(PointVector &points, int x, int y, Color color, bool inverted, float brightness) {
-  color.r += (1 - color.r) * (1 - brightness);
-  color.g += (1 - color.g) * (1 - brightness);
-  color.b += (1 - color.b) * (1 - brightness);
+  color.r = (brightness);
+  color.g = (brightness);
+  color.b = (brightness);
 
   if (inverted) {
     points.emplace_back(y, x, color);

@@ -18,7 +18,6 @@ void ILineMode::mouseCallback(GLFWwindow* window, int button, int action, int mo
     }
     currentWindow = window;
     startPoint = screenPointToSystemPoint({(int)xpos, (int)ypos}, screenCenter);
-    std::cout << startPoint.getX() << " " << startPoint.getY() << " " << screenCenter.getX() << " " << screenCenter.getY() << std::endl;
   }
 
   if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE) {

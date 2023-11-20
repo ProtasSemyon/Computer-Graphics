@@ -4,7 +4,3 @@
 std::shared_ptr<IObject> BresenhemLineMode::getDrawObject(const PointVector &points) const {
   return std::make_shared<BresenhemLine>(points);
 }
-
-
-
-
