@@ -30,7 +30,7 @@ PointVector HermitCurveDrawer::getPoints(const PointVector& points, const Color&
   int maxTime = std::max(std::abs(delta.getX()), std::abs(delta.getY())) * POINT_MULTIPLICATOR + 2000;
 
   for (int time = 0; time <= maxTime; time++) {
-    result.emplace_back(getPoint((double)(time)/maxTime, color) - points[1]);
+    result.emplace_back(getPoint((double)(time)/maxTime, color));
   }
 
   return result;
